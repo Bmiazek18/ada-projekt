@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Ada: Build (alr build)",
+            "type": "shell",
+            "command": "alr build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Ada: Build & Run",
+            "type": "shell",
+            "command": "alr build && ./bin/main",
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Ada: Clean (alr clean)",
+            "type": "shell",
+            "command": "alr clean",
+            "problemMatcher": []
+        }
+    ]
+}
