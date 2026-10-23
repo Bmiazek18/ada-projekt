@@ -4,7 +4,8 @@ package Impatient_Lecturers is
 
    -- Wykladowca z ograniczonym czasem oczekiwania (timed entry call)
    task type Impatient_Lecturer_Type (
-      Id              : Lecturer_Id;
+      Lecturer_Number : Lecturer_Id;
+      Protocol_Id     : Positive;
       Delay_Tenths    : Natural;
       Kind            : Item_Kind;
       Amount          : Positive;

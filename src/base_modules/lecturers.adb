@@ -6,7 +6,7 @@ with Random_Utils;
 package body Lecturers is
 
    task body Lecturer_Type is
-      Lecturer     : constant String := Get_Lecturer_Title (Id);
+      Lecturer     : constant String := Get_Lecturer_Title (Lecturer_Number);
       Jitter       : constant Duration := Random_Utils.Random_Delay (0.1, 0.4);
       Delay_Before : constant Duration := Duration (Delay_Tenths) / 10.0 + Jitter;
       Was_Accepted : Boolean := False;
@@ -14,19 +14,20 @@ package body Lecturers is
       delay Delay_Before;
 
       Logger.Screen_Logger.Log (
-         "Przyjazd wykładowcy: " & Lecturer & " [" &
+         "Przyjazd wykładowcy: " & Lecturer & " [Protokół #" &
+         Positive'Image (Protocol_Id) & ", " &
          To_String (Kind) & ", " &
-         Natural'Image (Amount) & " ECTS w protokole]"
+         Natural'Image (Amount) & " ECTS]"
       );
       Logger.Screen_Logger.Log (Lecturer & " oczekuje w kolejce do Portierni / Okienka");
 
-      -- Zwykłe spotkanie (rendezvous) - wykładowca czeka na wolne okienko
+      -- Zwykłe spotkanie - wykładowca czeka na wolne okienko
       Unloading_Dock.Unloading_Dock_Task.Request_Unload (
          Delivery => (
-            Id              => Id,
+            Id              => Protocol_Id,
             Kind            => Kind,
             Amount          => Amount,
-            Origin_Lecturer => Id
+            Origin_Lecturer => Lecturer_Number
          ),
          Accepted => Was_Accepted
       );

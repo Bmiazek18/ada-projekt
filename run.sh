@@ -8,4 +8,4 @@ echo "🔨 Kompilacja projektu Ada..."
 alr build
 
 echo -e "\n🚀 Uruchamianie aplikacji...\n"
-./bin/main "$@"
+./bin/ada_projekt "$@"

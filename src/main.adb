@@ -20,16 +20,16 @@ procedure Main is
    S3 : Student_Type (3);
 
    -- Wykładowcy dostarczający protokoły ocen z katedr
-   D1 : Lecturer_Type (Id => 1, Delay_Tenths => 5,   Kind => ECTS_Wyklad,        Amount => 8);
-   D2 : Lecturer_Type (Id => 2, Delay_Tenths => 8,   Kind => ECTS_Laboratorium,  Amount => 10);
-   D3 : Lecturer_Type (Id => 3, Delay_Tenths => 11,  Kind => ECTS_Projekt,       Amount => 12);
-   D5 : Lecturer_Type (Id => 5, Delay_Tenths => 35,  Kind => ECTS_Laboratorium,  Amount => 8);
-   D6 : Lecturer_Type (Id => 6, Delay_Tenths => 55,  Kind => ECTS_Projekt,       Amount => 14);
-   D7 : Lecturer_Type (Id => 7, Delay_Tenths => 78,  Kind => ECTS_Wyklad,        Amount => 10);
-   D8 : Lecturer_Type (Id => 8, Delay_Tenths => 100, Kind => ECTS_Laboratorium,  Amount => 6);
+   D1 : Lecturer_Type (Lecturer_Number => 1, Protocol_Id => 101, Delay_Tenths => 5,   Kind => ECTS_Wyklad,        Amount => 8);
+   D2 : Lecturer_Type (Lecturer_Number => 2, Protocol_Id => 102, Delay_Tenths => 8,   Kind => ECTS_Laboratorium,  Amount => 10);
+   D3 : Lecturer_Type (Lecturer_Number => 3, Protocol_Id => 103, Delay_Tenths => 11,  Kind => ECTS_Projekt,       Amount => 12);
+   D5 : Lecturer_Type (Lecturer_Number => 5, Protocol_Id => 105, Delay_Tenths => 35,  Kind => ECTS_Laboratorium,  Amount => 8);
+   D6 : Lecturer_Type (Lecturer_Number => 6, Protocol_Id => 106, Delay_Tenths => 55,  Kind => ECTS_Projekt,       Amount => 14);
+   D7 : Lecturer_Type (Lecturer_Number => 7, Protocol_Id => 107, Delay_Tenths => 78,  Kind => ECTS_Wyklad,        Amount => 10);
+   D8 : Lecturer_Type (Lecturer_Number => 8, Protocol_Id => 108, Delay_Tenths => 100, Kind => ECTS_Laboratorium,  Amount => 6);
 
    -- Wykładowca z ograniczonym czasem oczekiwania (Docent Pośpiech)
-   D4 : Impatient_Lecturer_Type (Id => 4, Delay_Tenths => 13, Kind => ECTS_Wyklad, Amount => 6, Patience_Tenths => 9);
+   D4 : Impatient_Lecturer_Type (Lecturer_Number => 4, Protocol_Id => 104, Delay_Tenths => 13, Kind => ECTS_Wyklad, Amount => 6, Patience_Tenths => 9);
 
    Final_Stock   : Warehouse_Stock_Array;
    Final_Total   : Natural;

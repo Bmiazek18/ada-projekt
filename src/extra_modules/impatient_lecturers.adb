@@ -7,7 +7,7 @@ with Ada.Strings.Fixed;
 package body Impatient_Lecturers is
 
    task body Impatient_Lecturer_Type is
-      Lecturer      : constant String := Get_Lecturer_Title (Id);
+      Lecturer      : constant String := Get_Lecturer_Title (Lecturer_Number);
       Jitter        : constant Duration := Random_Utils.Random_Delay (0.1, 0.3);
       Delay_Before  : constant Duration := Duration (Delay_Tenths) / 10.0 + Jitter;
       Patience_Time : constant Duration := Duration (Patience_Tenths) / 10.0 + Random_Utils.Random_Delay (-0.1, 0.15);
@@ -16,7 +16,8 @@ package body Impatient_Lecturers is
       delay Delay_Before;
 
       Logger.Screen_Logger.Log (
-         "Przyjazd zniecierpliwionego wykładowcy: " & Lecturer & " [" &
+         "Przyjazd zniecierpliwionego wykładowcy: " & Lecturer & " [Protokół #" &
+         Positive'Image (Protocol_Id) & ", " &
          To_String (Kind) & ", " &
          Natural'Image (Amount) & " ECTS, cierpliwosc: " &
          Ada.Strings.Fixed.Trim (Duration'Image (Patience_Time), Ada.Strings.Both) & "s]"
@@ -30,10 +31,10 @@ package body Impatient_Lecturers is
       select
          Unloading_Dock.Unloading_Dock_Task.Request_Unload (
             Delivery => (
-               Id              => Id,
+               Id              => Protocol_Id,
                Kind            => Kind,
                Amount          => Amount,
-               Origin_Lecturer => Id
+               Origin_Lecturer => Lecturer_Number
             ),
             Accepted => Was_Accepted
          );

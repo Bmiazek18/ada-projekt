@@ -4,10 +4,11 @@ package Lecturers is
 
    -- Wykładowca dostarczający protokoły ocen z katedry
    task type Lecturer_Type (
-      Id           : Lecturer_Id;
-      Delay_Tenths : Natural;
-      Kind         : Item_Kind;
-      Amount       : Positive
+      Lecturer_Number : Lecturer_Id;
+      Protocol_Id     : Positive;
+      Delay_Tenths    : Natural;
+      Kind            : Item_Kind;
+      Amount          : Positive
    );
 
 end Lecturers;
