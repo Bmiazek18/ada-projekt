@@ -8,14 +8,15 @@ with ECTS_Types; use ECTS_Types;
 package body Monitor is
 
    task body Monitor_Task is
-      Running         : Boolean := True;
-      Stock           : Warehouse_Stock_Array;
-      Total_Stock     : Natural;
-      Max_Capacity    : Natural;
-      Pending_Count   : Natural;
-      Success_Dels    : Natural;
-      Timeout_Dels    : Natural;
-      Students_Status : Students_Info_Array;
+      Refresh_Interval : constant Duration := 3.0;
+      Running          : Boolean := True;
+      Stock            : Warehouse_Stock_Array;
+      Total_Stock      : Natural;
+      Max_Capacity     : Natural;
+      Pending_Count    : Natural;
+      Success_Dels     : Natural;
+      Timeout_Dels     : Natural;
+      Students_Status  : Students_Info_Array;
    begin
       Logger.Screen_Logger.Log ("[MONITOR] Kontroler stanu centrum ECTS uruchomiony.");
 
@@ -25,7 +26,7 @@ package body Monitor is
                Running := False;
             end Stop;
          or
-            delay 3.0;
+            delay Refresh_Interval;
 
             -- Pobranie danych ze wszystkich komponentow
             Warehouse.Warehouse_Task.Get_Stock (Stock, Total_Stock, Max_Capacity);

@@ -16,7 +16,6 @@ package ECTS_Types is
       Origin_Lecturer : Lecturer_Id;
    end record;
 
-   -- Stany studenta-kuriera podczas dyżuru
    type Student_State is (
       Wolny,
       Odbiera_ECTS,

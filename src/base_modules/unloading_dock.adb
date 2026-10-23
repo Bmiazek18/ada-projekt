@@ -5,7 +5,7 @@ package body Unloading_Dock is
 
    -- Portiernia wydzialu (bufor cykliczny)
    task body Unloading_Dock_Task is
-      Max_Buffer : constant Natural := 6;
+      Max_Buffer : constant Natural := Max_Dock_Buffer;
       type Buffer_Array is array (1 .. Max_Buffer) of Delivery_Record;
       Buffer     : Buffer_Array;
       Head       : Positive := 1;
@@ -28,7 +28,7 @@ package body Unloading_Dock is
 
       while Running loop
          select
-            -- Przyjęcie protokołu od wykładowcy (dozór: tylko gdy jest miejsce w buforze)
+            -- Przyjęcie protokołu od wykładowcy (tylko gdy jest miejsce w buforze)
             when Count < Max_Buffer =>
                accept Request_Unload (
                   Delivery : in  Delivery_Record;
@@ -70,8 +70,8 @@ package body Unloading_Dock is
 
          or
             -- Pobranie liczby oczekujących teczek (dla Monitora)
-            accept Get_Pending_Count (Count : out Natural) do
-               Count := Unloading_Dock_Task.Count;
+            accept Get_Pending_Count (Pending_Count : out Natural) do
+               Pending_Count := Count;
             end Get_Pending_Count;
 
          or

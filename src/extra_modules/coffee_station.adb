@@ -4,7 +4,8 @@ with Random_Utils;
 package body Coffee_Station is
 
    task body Coffee_Station_Task is
-      Running : Boolean := True;
+      Full_Energy_Recovery : constant Natural := 100;
+      Running              : Boolean := True;
    begin
       Logger.Screen_Logger.Log ("[BUFET] Ekspres ciśnieniowy [1 stanowisko] gotowy do parzenia kawy.");
 
@@ -23,7 +24,7 @@ package body Coffee_Station is
 
                delay Random_Utils.Random_Delay (1.6, 2.2);
 
-               Energy_Out := 100;
+               Energy_Out := Full_Energy_Recovery;
                Logger.Screen_Logger.Log (
                   "[BUFET] Student S" & Natural'Image (S_Id) &
                   " wypil kawe! Energia zregenerowana do 100%. Zwolniono ekspres."

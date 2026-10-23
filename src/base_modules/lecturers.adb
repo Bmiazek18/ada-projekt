@@ -6,10 +6,11 @@ with Random_Utils;
 package body Lecturers is
 
    task body Lecturer_Type is
-      Lecturer     : constant String := Get_Lecturer_Title (Lecturer_Number);
-      Jitter       : constant Duration := Random_Utils.Random_Delay (0.1, 0.4);
-      Delay_Before : constant Duration := Duration (Delay_Tenths) / 10.0 + Jitter;
-      Was_Accepted : Boolean := False;
+      Tenths_To_Seconds : constant Duration := 0.1;
+      Lecturer          : constant String := Get_Lecturer_Title (Lecturer_Number);
+      Jitter            : constant Duration := Random_Utils.Random_Delay (0.1, 0.4);
+      Delay_Before      : constant Duration := Duration (Delay_Tenths) * Tenths_To_Seconds + Jitter;
+      Was_Accepted      : Boolean := False;
    begin
       delay Delay_Before;
 
@@ -32,6 +33,7 @@ package body Lecturers is
          Accepted => Was_Accepted
       );
 
+      -- Rejestracja statystyk i logowanie wyniku oddania protokołu
       if Was_Accepted then
          Delivery_Stats.Stats.Register_Success;
          Logger.Screen_Logger.Log (Lecturer & " zlozyl protokol i odjechal na wyklad");

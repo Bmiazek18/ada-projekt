@@ -4,7 +4,7 @@ package body Warehouse is
 
    task body Warehouse_Task is
       Stock        : Warehouse_Stock_Array := [others => 0];
-      Max_Capacity : constant Natural := 60;
+      Max_Capacity : constant Natural := Annual_ECTS_Capacity;
       Current_Total: Natural := 0;
       Running      : Boolean := True;
    begin
@@ -41,13 +41,13 @@ package body Warehouse is
 
          or
             accept Get_Stock (
-               Stock        : out Warehouse_Stock_Array;
-               Total_Stock  : out Natural;
-               Max_Cap      : out Natural
+               Out_Stock    : out Warehouse_Stock_Array;
+               Total_Points : out Natural;
+               Capacity     : out Natural
             ) do
-               Stock       := Warehouse_Task.Stock;
-               Total_Stock := Current_Total;
-               Max_Cap     := Max_Capacity;
+               Out_Stock    := Stock;
+               Total_Points := Current_Total;
+               Capacity     := Max_Capacity;
             end Get_Stock;
 
          or

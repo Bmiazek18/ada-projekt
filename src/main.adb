@@ -31,6 +31,9 @@ procedure Main is
    -- Wykładowca z ograniczonym czasem oczekiwania (Docent Pośpiech)
    D4 : Impatient_Lecturer_Type (Lecturer_Number => 4, Protocol_Id => 104, Delay_Tenths => 13, Kind => ECTS_Wyklad, Amount => 6, Patience_Tenths => 9);
 
+   -- Czas trwania sesji egzaminacyjnej
+   Simulation_Duration : constant Duration := 19.0;
+
    Final_Stock   : Warehouse_Stock_Array;
    Final_Total   : Natural;
    Final_Max     : Natural;
@@ -45,7 +48,7 @@ begin
    Put_Line ("=================================================================================");
    New_Line;
 
-   delay 19.0;
+   delay Simulation_Duration;
 
    Logger.Screen_Logger.Log ("Rozpoczecie procedury zamykania sesji w Dziekanacie...");
 

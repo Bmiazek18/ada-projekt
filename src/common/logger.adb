@@ -9,8 +9,6 @@ package body Logger is
       Elapsed  : Duration := 0.0;
       Seconds  : Natural := 0;
       Fraction : Natural := 0;
-      Sec_Str  : String (1 .. 2) := "00";
-      Frac_Str : String (1 .. 1) := "0";
    begin
       if Now_Time >= T_Start then
          Elapsed := Now_Time - T_Start;
@@ -18,33 +16,29 @@ package body Logger is
          Elapsed := 0.0;
       end if;
 
-      Seconds := Natural (Float'Floor (Float (Elapsed)));
+      Seconds  := Natural (Float'Floor (Float (Elapsed)));
       Fraction := Natural (Float'Floor ((Float (Elapsed) - Float (Seconds)) * 10.0));
 
-      if Seconds < 10 then
-         Sec_Str := "0" & Ada.Strings.Fixed.Trim (Natural'Image (Seconds), Ada.Strings.Both);
-      else
-         declare
-            Raw_Sec : constant String := Ada.Strings.Fixed.Trim (Natural'Image (Seconds), Ada.Strings.Both);
-         begin
-            if Raw_Sec'Length >= 2 then
-               Sec_Str := Raw_Sec (Raw_Sec'First .. Raw_Sec'First + 1);
-            else
-               Sec_Str := "0" & Raw_Sec;
-            end if;
-         end;
-      end if;
-
-      Frac_Str := Ada.Strings.Fixed.Trim (Natural'Image (Fraction mod 10), Ada.Strings.Both);
-      return "[" & Sec_Str & "." & Frac_Str & "]";
+      declare
+         Sec_Img  : constant String := Ada.Strings.Fixed.Trim (Natural'Image (Seconds), Ada.Strings.Both);
+         Frac_Img : constant String := Ada.Strings.Fixed.Trim (Natural'Image (Fraction mod 10), Ada.Strings.Both);
+      begin
+         if Seconds < 10 then
+            return "[0" & Sec_Img & "." & Frac_Img & "]";
+         else
+            return "[" & Sec_Img & "." & Frac_Img & "]";
+         end if;
+      end;
    exception
       when others =>
          return "[00.0]";
    end Get_Timestamp;
 
+   Bar_Width : constant Natural := 10;
+
    function Caffeine_Bar (Level : Natural) return String is
-      Blocks : constant Natural := Level / 10;
-      Result : String (1 .. 10) := (others => '-');
+      Blocks : constant Natural := Level / Bar_Width;
+      Result : String (1 .. Bar_Width) := (others => '-');
    begin
       for I in 1 .. Blocks loop
          if I in Result'Range then

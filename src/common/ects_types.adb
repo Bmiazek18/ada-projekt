@@ -19,7 +19,7 @@ package body ECTS_Types is
          when Niesie_Do_Dziekanatu     => return "Biegnie z protokołem do Dziekanatu";
          when Rejestruje_W_Dziekanacie => return "Składa protokół w Dziekanacie";
          when Idzie_Po_Kawe            => return "Brak energii, idzie do bufetu";
-         when Pije_Kawe                => return "Pije Espresso w Bufecie [☕]";
+         when Pije_Kawe                => return "Pije Espresso w Bufecie";
          when Zakonczyl_Dzien          => return "Zakończył dyżur na wydziale";
       end case;
    end To_String;

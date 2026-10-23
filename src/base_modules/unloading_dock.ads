@@ -2,6 +2,8 @@ with ECTS_Types; use ECTS_Types;
 
 package Unloading_Dock is
 
+   Max_Dock_Buffer : constant Natural := 6;
+
    task Unloading_Dock_Task is
       -- Przyjecie protokolu od wykladowcy
       entry Request_Unload (
@@ -16,7 +18,7 @@ package Unloading_Dock is
       );
 
       -- Liczba oczekujacych protokolow w portierni
-      entry Get_Pending_Count (Count : out Natural);
+      entry Get_Pending_Count (Pending_Count : out Natural);
 
       entry Stop;
    end Unloading_Dock_Task;

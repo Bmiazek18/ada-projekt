@@ -29,12 +29,19 @@ package body Students is
 
    -- Implementacja zadania Student_Type (Moduł 2 & Moduł E)
    task body Student_Type is
-      Energy     : Natural := 100;
+      Initial_Energy           : constant Natural  := 100;
+      Caffeine_Low_Threshold   : constant Natural  := 25;
+      Energy_Cost_Per_Delivery : constant Natural  := 25;
+      Walk_To_Cafe_Time        : constant Duration := 0.5;
+      Deanery_Timeout          : constant Duration := 1.5;
+      Idle_Wait_Time           : constant Duration := 0.4;
+
+      Energy     : Natural := Initial_Energy;
       Running    : Boolean := True;
       Order      : Delivery_Record;
       Has_Order  : Boolean := False;
       Accepted   : Boolean := False;
-      New_Eng    : Natural := 100;
+      New_Eng    : Natural := Initial_Energy;
       S_Name     : constant String := Get_Student_Title (Id);
    begin
       Logger.Screen_Logger.Log ("[" & S_Name & "] Gotowy do dyzuru. Poziom kofeiny: 100%");
@@ -52,12 +59,12 @@ package body Students is
 
          if Running then
             -- Moduł E: regeneracja kofeiny w bufecie, gdy spadnie <= 25%
-            if Energy <= 25 then
+            if Energy <= Caffeine_Low_Threshold then
                Student_Registry.Update_Status (Id, Idzie_Po_Kawe, Energy);
                Logger.Screen_Logger.Log ("[" & S_Name & "] Spadek kofeiny (" &
                                          Natural'Image (Energy) & "%), idzie do bufetu po kawe");
 
-               delay 0.5; -- Czas dojścia do bufetu
+               delay Walk_To_Cafe_Time;
 
                Student_Registry.Update_Status (Id, Pije_Kawe, Energy);
                Coffee_Station.Coffee_Station_Task.Drink_Coffee (Id, Energy, New_Eng);
@@ -98,7 +105,7 @@ package body Students is
                select
                   Warehouse.Warehouse_Task.Store_Items (Order, Accepted);
                or
-                  delay 1.5;
+                  delay Deanery_Timeout;
                   Accepted := False;
                   Logger.Screen_Logger.Log (
                      "[" & S_Name & "] Dziekanat niedostepny lub osiagnal pelny limit (timeout) - protokol odrzucony"
@@ -112,8 +119,8 @@ package body Students is
                end if;
 
                -- Zużycie energii po kursie
-               if Energy >= 25 then
-                  Energy := Energy - 25;
+               if Energy >= Energy_Cost_Per_Delivery then
+                  Energy := Energy - Energy_Cost_Per_Delivery;
                else
                   Energy := 0;
                end if;
@@ -124,8 +131,14 @@ package body Students is
                   Natural'Image (Energy) & "%)"
                );
             else
-               -- Jeśli brak teczek, chwila oczekiwania
-               delay 0.4;
+               -- Jeśli brak teczek, oczekiwanie z możliwością natychmiastowego przerwania przez Stop
+               select
+                  accept Stop do
+                     Running := False;
+                  end Stop;
+               or
+                  delay Idle_Wait_Time;
+               end select;
             end if;
          end if;
       end loop;
