@@ -2,7 +2,7 @@ with ECTS_Types; use ECTS_Types;
 
 package Lecturers is
 
-   -- Wykładowca dostarczający protokoły ocen z katedry
+   -- MODUŁ 1: Wykładowcy dostarczający protokoły ocen z katedr
    task type Lecturer_Type (
       Lecturer_Number : Lecturer_Id;
       Protocol_Id     : Positive;

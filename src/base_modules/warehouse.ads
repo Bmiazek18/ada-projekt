@@ -4,7 +4,7 @@ package Warehouse is
 
    Annual_ECTS_Capacity : constant Natural := 60;
 
-   -- Magazyn punktow ECTS w Dziekanacie
+   -- MODUŁ 3: Baza USOS / Dziekanat (Centralny magazyn punktów ECTS)
    task Warehouse_Task is
       entry Store_Items (
          Delivery : in  Delivery_Record;

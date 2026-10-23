@@ -2,7 +2,7 @@ with ECTS_Types; use ECTS_Types;
 
 package Students is
 
-   -- Zadanie studenta przenoszacego protokoly z portierni do dziekanatu
+   -- MODUŁ 2: Studenci-Starostowie (kurierzy przenoszący protokoły)
    task type Student_Type (Id : Student_Id) is
       entry Stop;
    end Student_Type;

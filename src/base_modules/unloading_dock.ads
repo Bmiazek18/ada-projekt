@@ -4,6 +4,7 @@ package Unloading_Dock is
 
    Max_Dock_Buffer : constant Natural := 6;
 
+   -- MODUŁ 1: Portiernia / Okienko podawcze (bufor cykliczny FIFO)
    task Unloading_Dock_Task is
       -- Przyjecie protokolu od wykladowcy
       entry Request_Unload (

@@ -28,7 +28,7 @@ procedure Main is
    D7 : Lecturer_Type (Lecturer_Number => 7, Protocol_Id => 107, Delay_Tenths => 78,  Kind => ECTS_Wyklad,        Amount => 10);
    D8 : Lecturer_Type (Lecturer_Number => 8, Protocol_Id => 108, Delay_Tenths => 100, Kind => ECTS_Laboratorium,  Amount => 6);
 
-   -- Wykładowca z ograniczonym czasem oczekiwania (Docent Pośpiech)
+   -- Wykładowca z ograniczonym czasem oczekiwania 
    D4 : Impatient_Lecturer_Type (Lecturer_Number => 4, Protocol_Id => 104, Delay_Tenths => 13, Kind => ECTS_Wyklad, Amount => 6, Patience_Tenths => 9);
 
    -- Czas trwania sesji egzaminacyjnej
